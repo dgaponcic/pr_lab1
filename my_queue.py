@@ -18,16 +18,20 @@ class Queue(object):
     self.was_added.release()
 
 
-  def get(self, timeout):
+  def get(self, timeout=None):
     try:
       self.lock.acquire()
 
-      endtime = time.time() + timeout
-      while not self.length:
-        remaining = endtime - time.time()
-        if remaining <= 0.0:
-            raise Empty
-        self.was_added.wait(timeout=remaining)
+      if timeout != None:
+        endtime = time.time() + timeout
+        while not self.length:
+            remaining = endtime - time.time()
+            if remaining <= 0.0:
+                raise Empty
+            self.was_added.wait(timeout=remaining)
+        
+      else:
+        self.was_added.wait()
 
       item = self.nodes.pop(0)
       self.length -= 1
