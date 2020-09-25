@@ -26,6 +26,12 @@ class ThreadPool:
     for _ in range(max_workers):
       self.workers.append(Worker(self.runnables))
 
+  def __enter__(self):
+    return self
+
+  def __exit__(self, exc_type, exc_value, exc_traceback):
+    self.join()
+
   def submit(self, f, *args):
     self.runnables.put({"function": f, "args": args})
 
