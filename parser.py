@@ -16,7 +16,5 @@ class Parser:
 
 
   def parse(self, data_type, data):
-    # print("Egrd")
     strategy = self.get_strategy(data_type)
-    # print("ger")
     return strategy.parse(data)
