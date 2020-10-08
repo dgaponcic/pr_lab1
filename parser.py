@@ -1,21 +1,22 @@
-from parse_xml import ParserXML
-from parse_yaml import ParserYAML
-from parse_csv import ParserCSV
-from parse_json import ParserJSON
-
+import concrete_parsers as parsers 
 
 class Parser:
   def __init__(self):
     self.strategy = None
 
-  def set_strategy(self, data_type):
+  def get_strategy(self, data_type):
     switcher = {
-      "application/x-yaml": ParserYAML(),
-      "text/csv": ParserCSV(),
-      "application/json": ParserJSON(),
-      "application/xml": ParserXML()
+      "application/x-yaml": parsers.ParserYAML(),
+      "text/csv": parsers.ParserCSV(),
+      "application/json": parsers.ParserJSON(),
+      "application/xml": parsers.ParserXML()
     }
-    self.strategy = switcher.get(data_type, "Invalid type")
+    
+    return switcher.get(data_type, "Invalid type")
 
-  def parse(self, data):
-    return self.strategy.parse(data)
+
+  def parse(self, data_type, data):
+    # print("Egrd")
+    strategy = self.get_strategy(data_type)
+    # print("ger")
+    return strategy.parse(data)
