@@ -1,5 +1,5 @@
-from queue import Empty
 from threading import Thread, Lock, Event, Condition
+from queue import Empty
 import signal
 import time
 

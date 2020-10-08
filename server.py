@@ -1,9 +1,9 @@
-import socket
-import json
-import threading
-import signal
-import sys
 from contextlib import suppress
+import threading
+import socket
+import signal
+import json
+import sys
 
 PORT = 10000
 BUFFER_SIZE = 1024

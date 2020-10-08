@@ -1,7 +1,8 @@
-import json
-import requests
 from contextlib import suppress
 from queue import Empty
+import requests
+import json
+
 
 def get_url(path):
   return f"http://localhost:5000{path}"

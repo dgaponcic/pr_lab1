@@ -1,9 +1,9 @@
 import signal
-from my_queue import Queue
-from server import TCPServer
-from my_thread_pool import ThreadPool
 from requests_handlers import make_initial_request, make_request
+from primitives.thread_pool import ThreadPool
 from data_handlers import get_aggregate_data
+from primitives.queue import Queue
+from server import TCPServer
 
 def main():
   access_token, url = make_initial_request()

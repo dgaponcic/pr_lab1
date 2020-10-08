@@ -1,9 +1,9 @@
-import re
-import csv
-import json
-import yaml
 import xml.etree.ElementTree as ET
 from io import StringIO
+import json
+import yaml
+import csv
+import re
 
 class ParserCSV:
   def parse(self, input_data):

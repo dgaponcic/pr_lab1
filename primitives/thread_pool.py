@@ -1,7 +1,7 @@
-from queue import Empty
 from contextlib import suppress
 from threading import Thread
-from my_queue import Queue
+from queue import Empty
+from primitives.queue import Queue
 
 
 class Worker():
