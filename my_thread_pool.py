@@ -18,6 +18,7 @@ class Worker():
         args = runnable["args"]
         function(*args)
 
+
 class ThreadPool:
   def __init__(self, max_workers):
     self.max_workers = max_workers
