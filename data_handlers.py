@@ -26,11 +26,11 @@ def get_data(jobs):
   return all_data
 
 
-def parse_data(q_out):
+def retrieve_data(q_out):
   all_data = []
   with suppress(Empty):
     while True:
-      res = q_out.get(timeout=10)
+      res = q_out.get(timeout=7)
       data = retrieve_data_from_request(res)
       if data["text"]:
         all_data.append(data)
@@ -39,7 +39,6 @@ def parse_data(q_out):
 
 
 def get_aggregate_data(q_out):
-  all_data = parse_data(q_out)
+  all_data = retrieve_data(q_out)
   aggregator = DataAggregator()
-
   return aggregator.parse_data(all_data)

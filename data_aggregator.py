@@ -5,7 +5,7 @@ class DataAggregator:
     self.parser = Parser()
 
 
-  def get_unique_id(self, person):
+  def create_unique_id(self, person):
     unique_id = None
     if "full_name" in person.keys():
       unique_id = person["full_name"].lower().replace(" ", "")
@@ -34,23 +34,22 @@ class DataAggregator:
         base_item[key] = person[key]
 
 
-  def get_person_by_id(self, all_data, unique_id):
+  def get_person_index(self, all_data, unique_id):
     person_id = None
-    for i, item in enumerate(all_data):
-      if item["id"] == unique_id:
-        person_id = i
+    for index, person in enumerate(all_data):
+      if person["id"] == unique_id:
+        person_id = index
         break
 
     return person_id
 
 
-  def join_data(self, all_data, chuck):
-    for person in chuck:
-      unique_id = self.get_unique_id(person)
-      person_id = self.get_person_by_id(all_data, unique_id)
-
-      if person_id:
-        self.add_keys(person, all_data[person_id])
+  def join_data(self, all_data, chunk):
+    for person in chunk:
+      unique_id = self.create_unique_id(person)
+      person_index = self.get_person_index(all_data, unique_id)
+      if person_index:
+        self.add_keys(person, all_data[person_index])
       else:
         item = self.get_new_person(unique_id)
         self.add_keys(person, item)

@@ -5,7 +5,7 @@ from data_handlers import get_aggregate_data
 from primitives.queue import Queue
 from server import TCPServer
 
-def main():
+if __name__ == "__main__":
   access_token, url = make_initial_request()
   q_out = Queue()
   q_in = Queue()
@@ -17,5 +17,3 @@ def main():
     data = get_aggregate_data(q_out)
     server = TCPServer()
     server.start(data)
-
-main()
