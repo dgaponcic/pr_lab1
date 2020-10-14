@@ -22,8 +22,6 @@ class TCPServer:
 
   def get_connection(self, sock):
     connection, client_address = sock.accept()
-    connection.settimeout(0.01)
-
     return connection
 
 
@@ -88,7 +86,6 @@ class TCPServer:
 
 
   def get_response(self, command, data):
-    command = command.decode('ascii')
     flags = re.findall("--[a-z]*", command)
     tokens = self.remove_flags(command).split(" ") if flags else command.split(" ")
     res = self.get_result_by_selector(tokens, data)
@@ -100,17 +97,17 @@ class TCPServer:
 
 
   def request(self, connection, data):
-    command = self.get_command(connection)
-    response = self.get_response(command, data)
-    connection.sendall(json.dumps(response).encode())
-    connection.close()
+    while True:
+      command = connection.recv(BUFFER_SIZE)
+      command = command.decode('ascii').strip()
 
+      if command == "exit":
+        connection.close()
+        break
 
-  def get_command(self, connection):
-    data = b''
-    with suppress(socket.error):
-      while True:
-        data = data + connection.recv(BUFFER_SIZE)
+      response = self.get_response(command, data)
+      connection.sendall((json.dumps(response) + "\n").encode())
+
     return data
 
 
