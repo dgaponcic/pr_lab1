@@ -43,7 +43,7 @@ class TCPServer:
     return {column: res}
 
   
-  def select_from_column(self, column, pattern, data):
+  def select_from_column_by_pattern(self, column, pattern, data):
     res = []
 
     for person in data:
@@ -64,7 +64,7 @@ class TCPServer:
       column = tokens[1]
       if len(tokens) >= 3:
         pattern = tokens[2]
-        res = self.select_from_column(column, pattern, data)
+        res = self.select_from_column_by_pattern(column, pattern, data)
       else:
         res = self.select_column(column, data)
     else:
